@@ -1,17 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Example: Dark mode toggle with keypress 'd'
-  document.addEventListener("keydown", (e) => {
+  const textElement = document.getElementById("terminal-text");
+  const terminal = document.querySelector(".terminal-content");
+
+  function typeWriter(text, i, callback) {
+    if (i < text.length) {
+      textElement.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(() => typeWriter(text, i, callback), 10);
+    } else if (callback) {
+      callback();
+    }
+  }
+
+  function initTyping() {
+    const text = textElement.innerText;
+    textElement.innerText = "";
+    typeWriter(text, 0, null);
+  }
+
+  function handleDarkModeToggle(e) {
     if (e.key === 'd') {
       document.body.classList.toggle("dark-mode");
     }
-  });
+  }
 
-  // Example: Copy email to clipboard on double-click
-  const terminal = document.querySelector(".terminal-content");
-  terminal.addEventListener("dblclick", () => {
-    const email = "0xshaura@protonmail.com";
+  function handleEmailCopy() {
+    const email = "shaurya.rawat36@gmail.com";
     navigator.clipboard.writeText(email).then(() => {
       alert("Email copied to clipboard: " + email);
     });
-  });
+  }
+
+  initTyping();
+  document.addEventListener("keydown", handleDarkModeToggle);
+  terminal.addEventListener("dblclick", handleEmailCopy);
 });
