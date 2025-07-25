@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (i < text.length) {
       textElement.innerHTML += text.charAt(i);
       i++;
-      setTimeout(() => typeWriter(text, i, callback), 50);
+      setTimeout(() => typeWriter(text, i, callback), 10);
     } else if (callback) {
       callback();
     }
